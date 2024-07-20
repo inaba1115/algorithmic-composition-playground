@@ -1,4 +1,4 @@
 [flake8]
-extend-ignore = E501,F403,F401,E203,C901
+extend-ignore = E501,F403,F401,E203,C901,E731
 exclude = .venv
 max-complexity = 10
