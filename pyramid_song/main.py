@@ -1,8 +1,6 @@
 import batch_midi as bm
-import numpy as np
 import superdirtpy as sd
 
-rng = np.random.default_rng()
 client = sd.SuperDirtClient()
 # client = bm.BatchMidiClient()
 dryrun = isinstance(client, bm.BatchMidiClient)
