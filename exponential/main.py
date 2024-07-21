@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 import batch_midi as bm
 import numpy as np
 import superdirtpy as sd
@@ -10,7 +8,7 @@ client = sd.SuperDirtClient()
 dryrun = isinstance(client, bm.BatchMidiClient)
 p = {"s": "super808", "amp": 0.8, "octave": 0}
 lamb = 5
-size = 50
+size = 100
 dt = 0.3
 
 
@@ -18,7 +16,6 @@ def main():
     tctx = sd.TemporalContext(dryrun=dryrun)
 
     for _ in range(30):
-        now = tctx.now()
         t_interval = rng.exponential(scale=1 / lamb, size=size) * dt
 
         params = p | {
@@ -28,8 +25,6 @@ def main():
             "room": 0.5,
         }
         sd.Pattern(client=client, params=params).play(tctx)
-
-        tctx.set_now(now + timedelta(seconds=dt * 15))
 
 
 if __name__ == "__main__":
