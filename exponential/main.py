@@ -9,27 +9,27 @@ client = sd.SuperDirtClient()
 # client = bm.BatchMidiClient()
 dryrun = isinstance(client, bm.BatchMidiClient)
 p = {"s": "super808", "amp": 0.8, "octave": 0}
-dt = 10
-size = 100
+lamb = 5
+size = 50
+dt = 0.3
 
 
 def main():
     tctx = sd.TemporalContext(dryrun=dryrun)
 
-    for _ in range(6):
+    for _ in range(30):
         now = tctx.now()
-        sample = rng.exponential(scale=dt, size=size)
-        delta = np.diff(sorted(sample[sample < dt])).tolist()
+        t_interval = rng.exponential(scale=1 / lamb, size=size) * dt
 
         params = p | {
-            "n": rng.integers(128, size=len(delta)).tolist(),
-            "delta": delta,
+            "n": rng.integers(128, size=len(t_interval)).tolist(),
+            "delta": t_interval.tolist(),
             "sustain": 1,
             "room": 0.5,
         }
         sd.Pattern(client=client, params=params).play(tctx)
 
-        tctx.set_now(now + timedelta(seconds=dt))
+        tctx.set_now(now + timedelta(seconds=dt * 15))
 
 
 if __name__ == "__main__":
