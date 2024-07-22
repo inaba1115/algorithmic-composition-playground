@@ -6,7 +6,7 @@ rng = np.random.default_rng()
 client = sd.SuperDirtClient()
 # client = bm.BatchMidiClient()
 dryrun = isinstance(client, bm.BatchMidiClient)
-p = {"s": "superpiano", "amp": 0.8, "octave": 0}
+p = {"s": "superpiano", "octave": 0}
 
 dt = 0.3
 dt_next_iter = 0.05
@@ -95,18 +95,18 @@ def main():
     b = Boids()
     for _ in range(n_iter):
         b.simulation()
+        agents = sorted(b.agent, key=lambda a: a["p"][0])
 
-        points = [(a["p"][0], a["p"][1]) for a in b.agent]
-        points = sorted(points, key=lambda p: p[0])
-
-        n = [scale_pitch(p[1]) for p in points]
-        delta = np.diff([p[0] * dt for p in points]).tolist()
+        n = [scale_pitch(a["p"][1]) for a in agents]
+        amp = [min(np.linalg.norm(a["v"]), vel) for a in agents]
+        delta = np.diff([a["p"][0] * dt * max(amp) for a in agents]).tolist()
         delta.append(dt_next_iter)
 
         params = p | {
             "n": n,
             "delta": delta,
             "sustain": 1.5,
+            "amp": amp,
         }
         sd.Pattern(client=client, params=params).play(tctx)
 
