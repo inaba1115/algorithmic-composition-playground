@@ -15,12 +15,7 @@ f4 = lambda x, y: (-0.15 * x + 0.28 * y, 0.26 * x + 0.24 * y + 0.44)
 fs = [f1, f2, f3, f4]
 
 num = 10000
-pitch_range = 127
 dt = 30
-
-
-def scale(v: float, min_: float, max_: float) -> float:
-    return (v - min_) / (max_ - min_)
 
 
 def main():
@@ -39,7 +34,7 @@ def main():
     min_y = min(ys)
     max_y = max(ys)
 
-    points = [(int(scale(p[0], min_x, max_x) * pitch_range), scale(p[1], min_y, max_y) * dt) for p in points]
+    points = [(int(sd.zmap(p[0], min_x, max_x, 0, 127)), sd.zmap(p[1], min_y, max_y, 0, 1) * dt) for p in points]
 
     points = sorted(points, key=lambda p: p[1])
     n = [p[0] for p in points]
