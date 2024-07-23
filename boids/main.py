@@ -83,12 +83,6 @@ class Boids:
             self.agent[i]["p"] += self.agent[i]["v"]
 
 
-def scale_pitch(y: float) -> int:
-    y = (y + size) / (size * 2)
-    y = (y * (127 - 48)) + 24
-    return int(y)
-
-
 def main():
     tctx = sd.TemporalContext(dryrun=dryrun)
 
@@ -97,7 +91,7 @@ def main():
         b.simulation()
         agents = sorted(b.agent, key=lambda a: a["p"][0])
 
-        n = [scale_pitch(a["p"][1]) for a in agents]
+        n = [int(sd.zmap(a["p"][1], -size, size, 24, 103)) for a in agents]
         amp = [min(np.linalg.norm(a["v"]), vel) for a in agents]
         delta = np.diff([a["p"][0] * dt * max(amp) for a in agents]).tolist()
         delta.append(dt_next_iter)
