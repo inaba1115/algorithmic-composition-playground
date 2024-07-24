@@ -11,13 +11,13 @@ develop = false
 
 [package.dependencies]
 mido = "^1.3.2"
-superdirtpy = "^0.8.0"
+superdirtpy = "^0.10.1"
 
 [package.source]
 type = "git"
 url = "https://github.com/inaba1115/batch-midi"
 reference = "HEAD"
-resolved_reference = "9a1bd222b500c072e9cc9b64e33910422e00c330"
+resolved_reference = "9a8729e3ce41d70731a2d94549f6ffe02250fbe9"
 
 [[package]]
 name = "black"
@@ -331,13 +331,13 @@ files = [
 
 [[package]]
 name = "superdirtpy"
-version = "0.8.0"
+version = "0.10.1"
 description = "superdirtpy is a client library for Super Dirt written in python."
 optional = false
 python-versions = "<4.0,>=3.12"
 files = [
-    {file = "superdirtpy-0.8.0-py3-none-any.whl", hash = "sha256:921ae3ade44952a9813412e879a676e9cc76c8ec98edbc05f9822cbb61591af4"},
-    {file = "superdirtpy-0.8.0.tar.gz", hash = "sha256:08fd820fc2c402b2f2689da09fcf5d98c80dafc0b342fe52144e56ebb60ee94c"},
+    {file = "superdirtpy-0.10.1-py3-none-any.whl", hash = "sha256:6d38445fb816c6acfdb6afb9273ed088c468d700b870df9b603f01b3724a993b"},
+    {file = "superdirtpy-0.10.1.tar.gz", hash = "sha256:a1773733396146b9e785283d880c464216e85c6ab7031e05a19704e02833f42b"},
 ]
 
 [package.dependencies]
