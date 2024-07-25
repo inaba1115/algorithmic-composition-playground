@@ -9,11 +9,9 @@ bpm = 150
 dt = round(60 / bpm / 4, 4)
 
 
-def m(k: int, n: int, r: int = 0) -> str:
-    a = n // k
-    b = n % k
-    mb = _m(b)
-    return (mb + sd.euclid(int((k - b) * 0.5), k - b, r)) * a + mb
+def m(k: int, n: int) -> str:
+    a, b = n // k, n % k
+    return (_m(b) + _m(k - b)) * a + _m(b)
 
 
 def _m(size: int) -> str:
@@ -28,13 +26,9 @@ def main():
     for _ in range(4):
         for i in [5, 7, 11, 13]:
             for j in range(4):
-                p1 = sd.euclid(7, 32, j)
-                p2 = m(i, 32, -j)
-                p3 = sd.euclid(2, 8, j) * 4
-
-                bd = [{"x": 0}.get(x) for x in p1]
-                sn = [{"x": 2}.get(x) for x in p2]
-                hc = [{"x": 6}.get(x) for x in p3]
+                bd = [{"x": 0}.get(x) for x in sd.euclid(7, 32, j)]
+                sn = [{"x": 2}.get(x) for x in m(i, 32)]
+                hc = [{"x": 6}.get(x) for x in sd.euclid(2, 8, j) * 4]
 
                 params = p | {
                     "n": [list(x) for x in zip(bd, sn, hc)],
