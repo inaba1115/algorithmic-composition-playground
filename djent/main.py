@@ -10,14 +10,9 @@ dt = round(60 / bpm / 4, 4)
 
 
 def m(k: int, n: int, o: int, r: int) -> str:
-    a, b = n // k, n % k
-    return (_m(b) + sd.euclid(o, k - b, r)) * a + _m(b)
-
-
-def _m(size: int) -> str:
-    if size < 1:
-        return ""
-    return "x" + "." * (size - 1)
+    a = n // k
+    b = n % k
+    return (sd.euclid(1, b) + sd.euclid(o, k - b, r)) * a + sd.euclid(1, b)
 
 
 def main():
