@@ -9,9 +9,9 @@ bpm = 150
 dt = round(60 / bpm / 4, 4)
 
 
-def m(k: int, n: int) -> str:
+def m(k: int, n: int, o: int, r: int) -> str:
     a, b = n // k, n % k
-    return (_m(b) + _m(k - b)) * a + _m(b)
+    return (_m(b) + sd.euclid(o, k - b, r)) * a + _m(b)
 
 
 def _m(size: int) -> str:
@@ -24,14 +24,25 @@ def main():
     tctx = sd.TemporalContext(dryrun=dryrun)
 
     for _ in range(4):
-        for i in [5, 7, 11, 13]:
-            for j in range(4):
-                bd = [{"x": 0}.get(x) for x in sd.euclid(7, 32, j)]
-                sn = [{"x": 2}.get(x) for x in m(i, 32)]
-                hc = [{"x": 6}.get(x) for x in sd.euclid(2, 8, j) * 4]
+        bd = [0] * 128
+        sn = [{"x": 2}.get(x) for x in sd.euclid(47, 128)]
+        ho = [10, None, None, None] * 32
+
+        params = p | {
+            "n": [list(x) for x in zip(bd, sn, ho)],
+            "delta": dt,
+        }
+        sd.Pattern(client=client, params=params).play(tctx)
+
+    for i in range(4):
+        for j in [1, 2]:
+            for k in [23, 19, 17, 22]:
+                bd = [{"x": 0}.get(x) for x in sd.euclid(k, 32)]
+                sn = [{"x": 2}.get(x) for x in m(5, 32, j, i)]
+                ho = [10, None, None, None] * 8
 
                 params = p | {
-                    "n": [list(x) for x in zip(bd, sn, hc)],
+                    "n": [list(x) for x in zip(bd, sn, ho)],
                     "delta": dt,
                 }
                 sd.Pattern(client=client, params=params).play(tctx)
