@@ -17,7 +17,7 @@ superdirtpy = "^0.12.2"
 type = "git"
 url = "https://github.com/inaba1115/batch-midi"
 reference = "HEAD"
-resolved_reference = "cde92b61f63acc9a6f8f15ad997ab10de20e3bf8"
+resolved_reference = "1b8653247a891678a03cdd77a04f458f2e14e1f2"
 
 [[package]]
 name = "black"
